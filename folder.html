@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Folder</title>
+<style>
+    #folderList {
+        list-style-type: none;
+        padding: 0;
+    }
+    .folderItem {
+        margin-bottom: 5px;
+    }
+</style>
+</head>
+<body>
+
+<h2>Add Folder</h2>
+<input type="text" id="folderName" placeholder="Enter folder name">
+<button onclick="addFolder()">Add Folder</button>
+
+<ul id="folderList"></ul>
+
+<script>
+function addFolder() {
+    var folderNameInput = document.getElementById("folderName");
+    var folderName = folderNameInput.value.trim();
+
+    if (folderName !== "") {
+        var folderList = document.getElementById("folderList");
+        var listItem = document.createElement("li");
+        listItem.className = "folderItem";
+
+        var link = document.createElement("a");
+        link.textContent = folderName;
+        link.href = "note.html"; // You can set the href attribute to any link you want
+
+        var deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function() {
+            deleteFolder(listItem, folderName);
+        };
+
+        listItem.appendChild(link);
+        listItem.appendChild(deleteButton);
+        folderList.appendChild(listItem);
+
+        // Save folder to localStorage
+        var folders = JSON.parse(localStorage.getItem("folders")) || [];
+        folders.push(folderName);
+        localStorage.setItem("folders", JSON.stringify(folders));
+
+        // Clear input field
+        folderNameInput.value = "";
+    } else {
+        alert("Please enter a folder name");
+    }
+}
+
+function deleteFolder(listItem, folderName) {
+    listItem.parentNode.removeChild(listItem);
+
+    // Remove folder from localStorage
+    var folders = JSON.parse(localStorage.getItem("folders")) || [];
+    var index = folders.indexOf(folderName);
+    if (index !== -1) {
+        folders.splice(index, 1);
+        localStorage.setItem("folders", JSON.stringify(folders));
+    }
+}
+
+// Load folders from localStorage on page load
+window.onload = function() {
+    var storedFolders = JSON.parse(localStorage.getItem("folders")) || [];
+
+    var folderList = document.getElementById("folderList");
+    storedFolders.forEach(function(folder) {
+        var listItem = document.createElement("li");
+        listItem.className = "folderItem";
+
+        var link = document.createElement("a");
+        link.textContent = folder;
+        link.href = "#"; // You can set the href attribute to any link you want
+
+        var deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function() {
+            deleteFolder(listItem, folder);
+        };
+
+        listItem.appendChild(link);
+        listItem.appendChild(deleteButton);
+        folderList.appendChild(listItem);
+    });
+};
+</script>
+
+</body>
+</html>

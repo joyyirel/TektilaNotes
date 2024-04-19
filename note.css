@@ -1,15 +1,96 @@
 /* Import Google Font - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+:root {
+    --background: #7b836c;
+}
+
 * {
     margin: 0;
     padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
 body {
+    background-color: var(--background);
+}
+
+nav { 
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    background-color: white;
+    width: 90px;
+    overflow: hidden;
+    transition: width 0.2s linear;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
     background: #88ABFF;
+    text-align: center;
+    display: flex;
+    transition: all 0.5s ease;
+    margin: 0px 0 0 0px;
+}
+
+.logo img {
+    margin-left: 15px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.logo span {
+    font-weight: bold;
+    padding-left: 14px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+a {
+    position: relative;
+    color: rgb(85, 83, 83);
+    font-size: 16px;
+    display: table;
+    width: 300px;
+    padding: 10px;
+    text-transform: capitalize;
+}
+
+.fa-solid {
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 10px;
+    font-size: 25px;
+    text-align: center;
+}
+
+.nav-item {
+    position: relative;
+    top: 5px;
+    margin-left: 10px;
+}
+
+.menu a:hover {
+    background-color: #cecece;
+}
+
+nav:hover {
+    width: 280px;
+    transition: all 0.5s ease;
+}
+
+.logout {
+    position: absolute;
+    bottom: 0;
 }
 
 ::selection {
@@ -18,7 +99,7 @@ body {
 }
 
 .wrapper {
-    margin: 50px;
+    margin: 50px 150px 50px 150px;
     display: grid;
     gap: 25px;
     grid-template-columns: repeat(auto-fill, 265px);
@@ -31,10 +112,18 @@ body {
     padding: 15px 20px 20px;
     background: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 11px 13px 5px -7px rgba(0,0,0,0.33);
+-webkit-box-shadow: 11px 13px 5px -7px rgba(0,0,0,0.33);
+-moz-box-shadow: 11px 13px 5px -7px rgba(0,0,0,0.33);
+}
+
+.wrapper .add-box {
+    margin-left: 35px;
+    width: 75%;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
 }
 
 .add-box,
-.icon,
 .bottom-content,
 .popup,
 header,
@@ -50,19 +139,10 @@ header,
     justify-content: center;
 }
 
-.add-box .icon {
-    height: 78px;
-    width: 78px;
-    color: #88ABFF;
-    font-size: 40px;
-    border-radius: 50%;
-    justify-content: center;
-    border: 2px dashed #88ABFF;
-}
-
 .add-box p {
     color: #88ABFF;
     font-weight: 500;
+    font-size: 1.2rem;
     margin-top: 20px;
 }
 
@@ -170,18 +250,6 @@ header,
 
 .menu li i {
     padding-right: 8px;
-}
-
-.menu li:hover i {
-    animation: icon 1s ease infinite;
-}
-
-@keyframes icon {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(-6deg); }
-    50% { transform: rotate(6deg); }
-    75% { transform: rotate(-6deg); }
-    100% { transform: rotate(6deg); }
 }
 
 .popup-box {
@@ -299,6 +367,47 @@ form button {
 
 form button:active {
     transform: translate(2px, 4px);
+}
+
+.chicken {
+    --colSize: 30px;
+    --br: calc(var(--colSize) * 2);
+    --combColor: hsl(12 98% 52% / 1);
+    --beakColor: hsl(42 100% 50% / 1);
+    display: grid;
+    grid-template-columns: repeat(3, var(--colSize));
+    grid-auto-rows: var(--colSize);
+    grid-template-areas:
+        ". . comb1"
+        "comb2 comb2 comb1"
+        ". eye beak"
+        ". wattle .";
+    margin-bottom: 1%;
+}
+.comb1 {
+    grid-area: comb1;
+    border-radius: 0 var(--br) var(--br) 0;
+    background: var(--combColor);
+}
+.comb2 {
+    grid-area: comb2;
+    border-radius: 0 var(--br) 0 var(--br);
+    background: var(--combColor);
+}
+.eye {
+    --pupil: calc(var(--colSize) * .18);
+    grid-area: eye;
+    background: radial-gradient(black var(--pupil), transparent var(--pupil));
+}
+.beak {
+    grid-area: beak;
+    border-radius: 0 var(--br) 0 0;
+    background: var(--beakColor);
+}
+.wattle {
+    grid-area: wattle;
+    border-radius: var(--br) 0 var(--br) var(--br);
+    background: var(--combColor);
 }
 
 @media (max-width: 660px) {
